@@ -1,3 +1,5 @@
+#!/bin/bash
+
 project_dir_name=hr-portal
 
 target_server=saffron.rivetlogic.com

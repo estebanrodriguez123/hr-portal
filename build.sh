@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 lr_version=$1
 lr_edition=$2
