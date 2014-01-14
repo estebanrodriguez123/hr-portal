@@ -6,5 +6,6 @@
 /dist/
 build/
 /lib/
+/liferay-portal
 *.iml
 ivy.xml.MD5
