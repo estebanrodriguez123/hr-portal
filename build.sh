@@ -38,6 +38,7 @@ if stringMatches "$lr_version" "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+";then
         echo "Build using Liferay $lr_version $lr_edition $lr_release_label"
 	zip_file=$(firstFile $lr_bamboo_dir "^liferay-portal-${lr_version}-[[:digit:][:alpha:]-]+-bamboo.zip$")
 	if [[ ! -z $zip_file ]];then
+		rm -rf ./liferay-portal
 		unzip ${lr_bamboo_dir}/$zip_file
 	else
 		echo "Unable to find \"$zip_file\" under directory \"$lr_bamboo_dir\"";
