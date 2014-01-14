@@ -16,11 +16,9 @@ valid_instances=(`echo $valid_instances | sed -e 's/,[[:space:]]*/ /g'`)
 valid_deployment_types=( "plugins" "ext" )
 default_deployment_type=${valid_deployment_types[0]}
 
-echo "default_deployment_type=\"$default_deployment_type\""
 if [ -z $deployment_type ];then
 	deployment_type=$default_deployment_type
 fi
-echo "deployment_type=\"$deployment_type\""
 
 if containsElement "$deployment_type" "${valid_deployment_types[@]}"; then
         echo;
