@@ -4,6 +4,10 @@
 <project name="build-common-ext">
 	<import file="../build-common-plugin.xml" />
 
+	<target name="deploy">
+                <echo>Please, use direct-deploy target for EXT Plugins.</echo>
+        </target>
+
 	<target name="build-db">
 		<echo>
 .
