@@ -14,3 +14,8 @@ build/
 /liferay-portal
 *.iml
 ivy.xml.MD5
+/ext/*-ext/docroot/WEB-INF/ext-impl/*.jar
+ext/*-ext/docroot/WEB-INF/ext-service/*.jar
+ext/*-ext/docroot/WEB-INF/ext-util-bridges/*.jar
+ext/*-ext/docroot/WEB-INF/ext-util-java/*.jar
+ext/*-ext/docroot/WEB-INF/ext-util-taglib/*.jar
