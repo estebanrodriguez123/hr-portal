@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element dataType="string" indexType="" name="linkLabel" readOnly="false" repeatable="true" required="false" showLabel="true" type="text" width="25">
+		<dynamic-element dataType="string" indexType="" name="linkUrl" readOnly="false" repeatable="false" required="false" showLabel="true" type="text" width="25">
+			<meta-data locale="en_US">
+				<entry name="label">
+					<![CDATA[Link URL]]>
+				</entry>
+				<entry name="predefinedValue">
+					<![CDATA[]]>
+				</entry>
+				<entry name="tip">
+					<![CDATA[]]>
+				</entry>
+			</meta-data>
+		</dynamic-element>
+		<meta-data locale="en_US">
+			<entry name="label">
+				<![CDATA[Link Label]]>
+			</entry>
+			<entry name="predefinedValue">
+				<![CDATA[]]>
+			</entry>
+			<entry name="tip">
+				<![CDATA[]]>
+			</entry>
+		</meta-data>
+	</dynamic-element>
+</root>

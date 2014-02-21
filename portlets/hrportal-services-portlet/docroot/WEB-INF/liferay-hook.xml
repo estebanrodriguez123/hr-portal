@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<hook>
+	<language-properties>
+		content/Language.properties
+	</language-properties>
+	<language-properties>
+		content/Language_en.properties
+	</language-properties>
+	<language-properties>
+		content/Language_de.properties
+	</language-properties>
+	<model-listener>
+		<model-listener-class>com.hrportal.hooks.AssetCategoryModelListener</model-listener-class>
+		<model-name>com.liferay.portlet.asset.model.AssetCategory</model-name>
+	</model-listener>
+</hook>

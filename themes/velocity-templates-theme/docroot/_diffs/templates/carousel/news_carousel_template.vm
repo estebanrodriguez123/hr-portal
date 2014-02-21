@@ -1,0 +1,203 @@
+#*
+ Copyright (C) 2012-2013 Rivet Logic Corporation.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GPLv3 General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GPLv3 General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+#parse("$velocity_templates_path/init.vm")
+#set ($list = ["/v/Topic[@groupId=$groupId]/carousel"])
+#set ($articleList = $WebArticleService.getJournalArticlesByCategoryXPaths($list))
+#set($np = $request.get("portlet-namespace"))
+#set($expand = $request.get("render-url-maximized") + "&${np}articleId=")
+#set($articleId = $request.get("parameters").get("articleId"))
+#if($articleId)
+    #foreach($article in $articleList)
+        #if($articleId == $article.articleId)
+            #set ($document = $saxReaderUtil.read($article.getContent()))
+            #set ($summary  = $document.selectSingleNode("/root/dynamic-element[@name='articleSummary']/dynamic-content").getText())
+            #set ($image    = $document.selectSingleNode("/root/dynamic-element[@name='articleImage']/dynamic-content").getText())
+            #if ($image && $summary)
+                <div>
+                    $journalContentUtil.getContent($article.groupId, $article.articleId, 'view', $themeDisplay.language-id, $xmlRequest)
+                </div>
+            #end
+        #end
+    #end
+
+#else
+
+    <style>
+        .hrp-carousel-wrapper {
+            border: 1px solid #653A27;
+            position: relative;
+            z-index: 10;
+        }
+        .aui-carousel {
+            padding-bottom: 51px;
+            padding-top: 15px;  
+            position: inherit;      
+        }
+        .carousel-item {
+            background: #FFFFFF;
+            height: 215px;
+            width: 100%;
+        }
+        
+        .carousel-item .article-img-link {
+            width: 40%;
+            display: block;
+        }
+        
+        .aui-carousel-item .more {
+            font-weight: bold;          
+        }
+        .aui-carousel-item-active{
+            display:block;
+            padding-left: 10px;
+        }
+        .${np}trim{
+            font-family: Georgia;
+            font-size: 13px;
+            text-align: justify;
+        }
+        .${np}article-img {
+            float: left;
+            height: 235px;
+            width: 280px;
+        }   
+        h1.${np}title {
+            text-align: left;
+            text-decoration: none;
+            margin: -4px 0 13px;
+            display: inline;
+        }
+        
+        h1.${np}zero-padding {
+            padding-left: 0px !important;
+        }
+        
+        .more{
+            font: bold 11px Tahoma,Helvetica,Arial,Sans-Serif;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        
+        .aui-carousel menu {
+            background: url("/hrportal-theme/images/banner_bg.jpg") repeat-x scroll 0 0 transparent;
+            height: 25px;
+            top: 236px;
+            border-radius: 0px;
+            right: 0px;
+            padding-top:3px;
+            position: relative;
+            text-align: center;
+        }       
+        
+        .aui-carousel menu li, .aui-carousel menu a {
+            float: none;
+            display: inline-block;
+            margin-top: 1px;
+        }
+    </style>
+    
+    <div class="hrp-carousel-wrapper">
+        <div id="${np}slider" class="hidden">
+            #foreach($article in $articleList)
+                #set ($document = $saxReaderUtil.read($article.getContent()))
+                #set ($summary = $document.selectSingleNode("/root/dynamic-element[@name='carousalSummary']/dynamic-content").getText())
+                #set ($image = $document.selectSingleNode("/root/dynamic-element[@name='carousalImage']/dynamic-content").getText())
+                #if  (($summary)  && ($summary != ''))
+                    <div class="carousel-item">
+                        #if  (($image)  && ($image != ''))
+                            <a class="article-img-link" href="${expand}${article.articleId}">
+                                <img class="${np}article-img" src="$image"/>
+                            </a>
+                        <div class="text-ct">
+                            <h1 class="${np}title">
+                                $article.getTitle($themeDisplay.language-id)
+                            </h1>
+                        #else 
+                        <div class="text-ct">
+                            <h1 class="${np}title ${np}zero-padding">
+                                $article.getTitle($themeDisplay.language-id)
+                            </h1>
+                        #end                        
+                        <div class='${np}trim'>
+                            $summary
+                        </div>
+                        <a href="${expand}${article.articleId}" class="more"> #language("read-more")</a>
+                        </div>
+                    </div>
+                    #set ($image = '')
+                    #set ($summary = '')
+                #end
+            #end
+        </div>
+    </div>
+    <script>
+        AUI().use('event', 'node','aui-carousel', function(A) {
+            function Carousel(config){
+                this.initialize(config);
+            };
+            Carousel.BREAK_WIDTH = 980;
+            Carousel.prototype =
+            {
+                initialize: function(config)
+                {
+                    var me = this;
+                    this.items_trim = A.all('#${np}slider .${np}trim');
+                    this.items_trim.each(this.trimItem,this);
+                    if (this.items_trim.size() > 0) {
+                        var carousel = this.createCarousel(config).render();
+                        A.on('orientationchange', function(e) {
+                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? 480 : 235;
+                            carousel.set('height', height);
+                        });
+                        A.on('resize', function(e) {
+                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? 480 : 235;
+                            carousel.set('height', height);
+                        });
+                    }
+                }, 
+                
+                viewport: function() {
+                    var e = window, a = 'inner';
+                    if (!('innerWidth' in window )) {
+                        a = 'client';
+                        e = document.documentElement || document.body;
+                    }
+                    return { width : e[ a+'Width' ] , height : e[ a+'Height' ] };
+                },
+                
+                trimItem: function(node)
+                {
+                    var t = node.get('text');
+                    node.set('text', (t.length > 235) ? t.substr(0, 235) + "..." : t);
+                }, 
+                createCarousel :  function(config)
+                {
+                    return new A.Carousel(config);
+                }
+            };
+            var config = {
+                intervalTime: 5,
+                contentBox: '#${np}slider',
+                height: (A.one('body').get('winWidth') <= Carousel.BREAK_WIDTH) ? 480 : 235,
+                
+            };
+            A.one('#${np}slider').removeClass('hidden');
+            new Carousel(config);
+        });
+    </script>
+#end

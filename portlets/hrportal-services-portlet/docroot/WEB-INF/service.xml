@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_0_0.dtd">
+<service-builder package-path="com.hrportal">
+	<author>Rivet Logic</author>
+	<namespace>hrportal</namespace>
+    <entity name="WebArticleHelper" local-service="true" human-name="Web Article helper"></entity>
+</service-builder>
