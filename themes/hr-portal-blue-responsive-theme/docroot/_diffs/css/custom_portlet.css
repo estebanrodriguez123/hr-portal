@@ -1,0 +1,57 @@
+@import"compass";
+
+/*
+custom_portlet.css = Styles used for  portlet markup
+*/
+
+/* base styles */
+ .portlet {
+    border : none;
+    overflow : hidden;
+    background-color : transparent;
+    border-bottom : 1px solid #D0D0D0;
+    margin-bottom:10px;
+    .portlet-topper {
+        .portlet-title {
+            background: #BABABA;
+            @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
+            @include border-top-radius(10px);
+            border: 1px solid #D0D0D0;
+            color: #5D5D5D;
+            font-size: 17px;
+            font-weight: bold;
+            font-family: 'Rokkitt',serif;
+            line-height: 20px;
+            letter-spacing: 0;
+            height: auto;
+            padding-left: 10px;
+            padding-top: 4px;
+            text-shadow: 1px 1px 1px #FFFFFF;
+            margin: 0;
+        }
+        menu.portlet-topper-toolbar {
+            padding:0;
+            .portlet-icon-back {
+                color:inherit;
+            }
+        }
+    }
+    .portlet-content {
+        border: 1px solid #D0D0D0;
+        padding: 5px 25px 25px 25px;
+        background: #FBFBFB;
+        @include background-image(linear-gradient(rgba(255, 255, 255, 1) 0%, rgba(237, 238, 239, 1) 35%, rgba(225, 227, 228, 1) 58%, rgba(220, 222, 224, 1) 100%));
+    }
+}
+.portlet-column-content-only, .ltr .portlet-column-content-first, .rtl .portlet-column-content-last {
+    margin : 0
+}
+.portlet-column-content {
+    padding : 5px
+}
+/* asset publisher */
+ .portlet-asset-publisher {
+    .asset-title a {
+        margin-left: -5px;
+    }
+}

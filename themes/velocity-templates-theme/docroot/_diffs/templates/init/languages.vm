@@ -1,0 +1,116 @@
+#*
+ Copyright (C) 2012-2013 Rivet Logic Corporation.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GPLv3 General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GPLv3 General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+## Languages Map
+#set ($langMap = {
+	'Guest':{
+	}, 
+	'Germany':[
+		{'id':'ara','name':'Arabic', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'tgl','name':'Filipino (Tagalog)', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'gle','name':'Irish', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'pol','name':'Polish', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'sve','name':'Swedish', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'chi','name':'Chinese (Mandarin)', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'fra','name':'French', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]}, 
+		{'id':'ita','name':'Italian', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'por','name':'Portuguese (Brazil)', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]}, 
+		{'id':'tha','name':'Thai', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'dan','name':'Danish', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'deu','name':'German', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'jpn','name':'Japanese', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]}, 
+		{'id':'rus','name':'Russian', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]}, 
+		{'id':'tur','name':'Turkish', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'dar','name':'Dari', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'grk','name':'Greek', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'kor','name':'Korean', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]}, 
+		{'id':'esp','name':'Spanish (Latin America)', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'urd','name':'Urdu', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]}, 
+		{'id':'ned','name':'Dutch', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'heb','name':'Hebrew', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'lat','name':'Latin', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]}, 
+		{'id':'esc','name':'Spanish (Spain)', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'vie','name':'Vietnamese', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'eng','name':'English (American)', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'hin','name':'Hindi', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]},
+		{'id':'pas','name':'Pashto', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'kis','name':'Swahili', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]}, 
+		{'id':'cym','name':'Welsh', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'ebr','name':'English (British)', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'ind','name':'Indonesian', 'product-types':[{'type' : 'TO', 'level' : 'S5'}]},
+		{'id':'far','name':'Persian (Farsi)', 'product-types':[{'type' : 'TO', 'level' : 'S3'}]}
+	]
+})
+
+#set ($languages = $langMap.get($community_name))
+#set ($idToLangMap = {})
+#foreach ($lang in $languages)
+	#set($ignore = $idToLangMap.put($lang.id, $lang))
+#end
+
+#set ($hoursMap = {
+    'S5' : '150 - 200',
+    'S3' : '90 - 120',
+    'S1' : '30 - 40'
+})
+
+##		{'id':'eng', 'name':'English (American)'},
+##		{'id':'fra', 'name':'French'},
+##		{'id':'deu', 'name':'German'},
+##		{'id':'ita', 'name':'Italian'},
+##		{'id':'esc', 'name':'Spanish (Spain)'},
+##		{'id':'esp', 'name':'Spanish (Latin America)'},
+##		{'id':'sve', 'name':'Swedish'}
+
+#set ($demoLangMap = {
+	'Guest':{
+	}, 
+	'Germany':[
+		$idToLangMap.get('eng'),
+		$idToLangMap.get('fra'),
+		$idToLangMap.get('deu'),
+		$idToLangMap.get('ita'),
+		$idToLangMap.get('esc'),
+		$idToLangMap.get('esp'),
+		$idToLangMap.get('sve')
+	]
+})
+
+#set ($siteCode = {
+	'Guest': '', 
+	'Germany': 'DE_WEBSITE'
+})
+
+#set ($CountryCode = {
+	'Guest': '', 
+	'Germany': 'DE'
+})
+
+#set ($CurrenyCode = {
+	'Guest': '', 
+	'Germany': 'EUR'
+})
+
+#set ($CurrenySymbols = {
+	'EUR': '&euro;',
+	'USD': '$'
+})
+
+#set ($demo_languages = $demoLangMap.get($community_name))
+#set ($site_code = $siteCode.get($community_name))
+#set ($CountryCode = $CountryCode.get($community_name))
+#set ($CurrenyCode = $CurrenyCode.get($community_name))
