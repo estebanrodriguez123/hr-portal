@@ -1,9 +1,9 @@
 /*
 custom_common.css = Common component styles
 */
- @import"compass";
- @import url(custom_responsive.css);
- .aui {
+@import"compass";
+@import url(custom_responsive.css);
+.aui {
     body {
         background:#EAEAEA;
         color: #5d5d5d;
@@ -22,7 +22,7 @@ custom_common.css = Common component styles
     }
 }
 /* dockbar */
- .aui {
+.aui {
     .dockbar-user-notifications .user-notifications-count, .notifications-portlet .user-notifications-count {
         background-color:transparent;
         border:none;
@@ -243,7 +243,7 @@ custom_common.css = Common component styles
     }
 }
 /* header */
- #hd-container {
+#hd-container {
     #header-wrapper, #navigation-wrapper .navbar-inner, #breadcrumbs-wrapper .breadcrumb {
         padding: 0 15%;
     }
@@ -253,10 +253,10 @@ custom_common.css = Common component styles
                 background: url(../images/horizontal-menu-submenu-indicator.png) no-repeat 95% 50%;
             }
             .navbar-inner {
-                 background: #EAEAEA;
-                 @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
-                 border: none;
-                 font-size: 15px;
+                background: #EAEAEA;
+                @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
+                border: none;
+                font-size: 15px;
             }
         }
     }
@@ -268,14 +268,14 @@ custom_common.css = Common component styles
     }
 }
 /* paginator */
- .paginator-container {
+.paginator-container {
     .paginator-current-page {
         background:#06141C;
         border:#B6B6B6;
     }
 }
 /* footer */
- #footer-wrapper {
+#footer-wrapper {
     background: #06141C;
     color: #878787;
     #footer-content {
@@ -309,7 +309,7 @@ custom_common.css = Common component styles
             }
             a {
                 color: #878787
-            }
+                    }
             #foot-about {
                 float: left;
                 margin : 0;
@@ -339,13 +339,13 @@ custom_common.css = Common component styles
             }
             #footer a {
                 text-decoration : none
-            }
+                    }
             #footer a:hover {
                 text-decoration : none
-            }
+                    }
             #footer a:visited {
                 text-decoration : none
-            }
+                    }
             .copy {
                 margin: 0px;
                 padding: 0px;

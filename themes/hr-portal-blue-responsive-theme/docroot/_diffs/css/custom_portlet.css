@@ -5,7 +5,7 @@ custom_portlet.css = Styles used for  portlet markup
 */
 
 /* base styles */
- .portlet {
+.portlet {
     border : none;
     overflow : hidden;
     background-color : transparent;
@@ -45,12 +45,12 @@ custom_portlet.css = Styles used for  portlet markup
 }
 .portlet-column-content-only, .ltr .portlet-column-content-first, .rtl .portlet-column-content-last {
     margin : 0
-}
+        }
 .portlet-column-content {
     padding : 5px
-}
+        }
 /* asset publisher */
- .portlet-asset-publisher {
+.portlet-asset-publisher {
     .asset-title a {
         margin-left: -5px;
     }

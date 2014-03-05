@@ -8,9 +8,9 @@
 
 .article-img {
     width: 140px;
-	height: 135px;
-	float: left;
-	margin: 5px;
+    height: 135px;
+    float: left;
+    margin: 5px;
 }
 
 h1.title {
@@ -28,10 +28,10 @@ a.go-back {
     margin-bottom:10px;
 }
 .aui-carousel-item{
-	display:none;
+    display:none;
 }
 .aui-carousel-item-active{
-	display:block;
+    display:block;
 }
 a.go-back:hover {
     color:#fff;

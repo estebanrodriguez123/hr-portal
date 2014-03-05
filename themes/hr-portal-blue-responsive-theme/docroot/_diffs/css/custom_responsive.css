@@ -1,17 +1,17 @@
 /*
 custom_responsive.css = Responsive styles
 */
- @import"mixins";
- @import"compass";
+@import"mixins";
+@import"compass";
 
 /* global  */
- @include respond-to(desktop) {
+@include respond-to(desktop) {
     .aui .row-fluid .portlet-column[class*="span"] {
         margin-left: 0.1%;
     }
- }
+}
 
- @include respond-to(phone, tablet) {
+@include respond-to(phone, tablet) {
     .aui {
         body {
             padding: 0;
@@ -28,7 +28,7 @@ custom_responsive.css = Responsive styles
     }
 }
 /* dockbar */
- @include respond-to(desktop) {
+@include respond-to(desktop) {
     .signed-out .dockbar {
         display:none;
     }
@@ -211,7 +211,7 @@ custom_responsive.css = Responsive styles
     }
 }
 /* header */
- @include respond-to(phone, tablet) {
+@include respond-to(phone, tablet) {
     .aui {
         #hd-container {
             #logo {
@@ -266,7 +266,7 @@ custom_responsive.css = Responsive styles
     }
 }
 /* search */
- @include respond-to(phone) {
+@include respond-to(phone) {
     .aui #search {
         float:none;
         text-align:center;
@@ -283,7 +283,7 @@ custom_responsive.css = Responsive styles
     }
 }
 /* carousel */
- @include respond-to(phone, tablet) {
+@include respond-to(phone, tablet) {
     .aui div.hrp-carousel-wrapper {
         .carousel-item .article-img-link, img {
             width: 100%;
@@ -299,9 +299,9 @@ custom_responsive.css = Responsive styles
         }
     }
 }
- 
+
 /* footer */
- @include respond-to(phone, tablet) {
+@include respond-to(phone, tablet) {
     .aui #footer-wrapper {
         #footer-content {
             .inner {
