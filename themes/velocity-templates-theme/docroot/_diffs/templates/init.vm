@@ -1,0 +1,55 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+#set ($fullTemplatesPath = "_SERVLET_CONTEXT_/html/themes/_unstyled/templates")
+#set ($themeDisplay = $request.get("theme-display"))
+#set ($portletDisplay = $themeDisplay.get("portlet-display"))
+
+## Velocity templates theme vars
+#set ($velocity_templates_theme_url = "/velocity-templates-theme")
+#set ($path_theme_images = $themeDisplay.get('path-theme-images'))
+#set ($theme_url = $path_theme_images.substring(0, $path_theme_images.lastIndexOf('/')))
+
+## hrportal Services
+#set ($WebArticleService = $serviceLocator.findService('hrportal-services-portlet', 'com.hrportal.service.WebArticleHelperLocalService'))
+#set ($hrpotalAjaxPortletId = "hrpotalajaxsubmit_WAR_hrpotalajaxsubmitportlet")
+#set ($hrpotalAjaxResourceURL = "$request.get('scopeeme')://$themeDisplay.get('portal-url')?p_p_id=$hrpotalAjaxPortletId&p_p_lifecycle=2")
+
+## Used Liferay Services
+#set ($GroupLocalService = $serviceLocator.findService('com.liferay.portal.service.GroupLocalService'))
+#set ($ExpandoValueService = $serviceLocator.findService('com.liferay.portlet.expando.service.ExpandoValueLocalService'))
+#set ($LayoutService = $serviceLocator.findService("com.liferay.portal.service.LayoutLocalService"))
+
+################################
+## General purpose variables
+################################
+#set ($group = $GroupLocalService.getGroup($getterUtil.getLong($themeDisplay.get('scope-group-id'))))
+#set ($community_name = $group.getName())
+#set ($current_time = $dateTool.getDate())
+#set ($url = $request.attributes.CURRENT_URL)
+#set ($community_web_path = "${themeDisplay.get('path-friendly-url-public')}${group.getFriendlyURL()}")
+#set ($layoutId = $getterUtil.getLong($request.get("theme-display").get("plid")))
+#set ($layout = $LayoutService.getLayout($layoutId))
+#set ($campaign_id = $ExpandoValueService.getData($layout.companyId, 
+	'com.liferay.portal.model.Layout', 'CUSTOM_FIELDS', 'campaign-id', $layout.plid, ''))
+
+## Languages Map expects $community_name variable to be present
+#parse("$velocity_templates_path/init/languages.vm")
+
+## Parameters 
+#parse("$velocity_templates_path/init/parameters.vm")
+

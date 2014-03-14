@@ -1,0 +1,100 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+##Use Jquery
+#parse("$velocity_templates_path/init.vm")
+#set ($list = ["/v/Topic/news"])
+#set ($articleList = $WebArticleService.getJournalArticlesByCategoryXPaths($list))
+#set($np = $request.get("portlet-namespace"))
+#set($expand = $request.get("render-url-maximized") + "&${np}articleId=")
+#set($articleId = $request.get("parameters").get("articleId"))
+
+
+<script src="/velocity-templates-theme/js/jquery.min.js"></script>
+<script>
+	window.jQuery || document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js">')
+</script>
+#if($articleId)
+	#foreach($article in $articleList)
+		#if($articleId == $article.articleId)
+			#set ($document = $saxReaderUtil.read($article.getContent()))
+		  	#set ($summary  = $document.selectSingleNode("/root/dynamic-element[@name='articleSummary']/dynamic-content").getText())
+		  	#set ($image    = $document.selectSingleNode("/root/dynamic-element[@name='articleImage']/dynamic-content").getText())
+		  	#if ($image && $summary)
+		  		<div>
+		  			$journalContentUtil.getContent($article.groupId, $article.articleId, 'view', $themeDisplay.language-id, $xmlRequest)
+		  		</div>
+		  	#end
+		#end
+	#end
+
+#else
+
+	<script src="/velocity-templates-theme/js/jquery.anythingslider.js"></script>
+	<link href="/velocity-templates-theme/css/carousel-theme.css" rel="stylesheet">
+	<style>
+		#slider {
+			width: 651px;
+			height : 159px;
+			list-style: none;
+		}
+	</style>
+	
+	<script>
+		// DOM Ready
+		$(function(){
+			$(".trim").text(function(){
+	            var t = $(this).text();
+	            return (t.length > 400) ? t.substr(0, 400) + "..." : t;
+	        });
+				$('#slider')
+					.anythingSlider({
+						autoPlay  		   : true,
+						delayBeforeAnimate : 400,
+	        			buildArrows        : false,  
+	        		onSlideBegin: function (e, slider) {
+	        			slider.$items.fadeOut(600);
+	        			},
+	        		onSlideComplete: function (slider) {
+	            		slider.$items.fadeIn(600, "swing");
+	        			}
+					})
+			});
+	</script>
+	<ul id="slider">
+		 
+		#foreach($article in $articleList)
+		  	#set ($document = $saxReaderUtil.read($article.getContent()))
+		  	#set ($summary = $document.selectSingleNode("/root/dynamic-element[@name='articleSummary']/dynamic-content").getText())
+		  	#set ($image = $document.selectSingleNode("/root/dynamic-element[@name='articleImage']/dynamic-content").getText())
+		  	#if  (($image && $summary)  && ($image != '' && $summary != ''))
+				<li>
+					<a href="${expand}${article.articleId}">
+						<img class="articleImg" src="$image"/>
+					</a>
+					<h1 class="title">$article.getTitle($themeDisplay.language-id)</h1>
+					<div class='trim'>
+						$summary
+					</div>
+					<a href="${expand}${article.articleId}" class="more"> #language("read-more")</a>
+				</li>
+				#set ($image = '')
+				#set ($summary = '')
+			#end
+		#end
+	</ul>
+#end

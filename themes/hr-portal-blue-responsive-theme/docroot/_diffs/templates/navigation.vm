@@ -1,0 +1,165 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+#set ($companyService = $serviceLocator.findService('com.liferay.portal.service.CompanyLocalService'))
+#set ($groupService = $serviceLocator.findService('com.liferay.portal.service.GroupLocalService'))
+#set ($mainGroupId = $groupService.getGroup($companyService.getCompanyByWebId("liferay.com").getCompanyId(),$propsUtil.get("navigation.site.name")).getGroupId())
+#set ($layoutService = $serviceLocator.findService('com.liferay.portal.service.LayoutLocalService'))
+#set ($mainLayoutPlid = $layoutService.getDefaultPlid($mainGroupId, false)) ##true for private pages and false for public
+#set ($mainLayout = $layoutService.getLayout($mainLayoutPlid))
+#set ($mainLayouts = $layoutService.getLayouts($mainGroupId, false, 0))
+#set ($newMainLayouts = [])
+#foreach ($newLayout in $mainLayouts)
+	#set($guest_can_view = $layoutPermission.contains($themeDisplay.getPermissionChecker(), $newLayout, "VIEW"))
+	#set($hidden_layout = $newLayout.isHidden())
+	#if ($guest_can_view == true)
+		#if ($hidden_layout == false)
+			#set( $temp_l_var = $newMainLayouts.add($newLayout))
+		#end
+	#end
+#end
+
+
+#set ($nav_items = $WebArticleService.getNavItemsFromLayouts($newMainLayouts, 
+		$request, $theme_display, $mainLayout.ancestorPlid, $mainLayout.ancestorLayoutId))
+
+#*
+	THIS COMMENTED CODE HAS BEEN MOVED TO WebArticleHelperLocalServiceImpl.java
+	TO BE ABLE TO BY PASS ISSUES IN LIFERAY SECURITY MANAGER.
+	
+	#set ($portalBeanLocator = $portal.getClass().forName('com.liferay.portal.kernel.bean.PortalBeanLocatorUtil'))
+	#set ($veloengine = $portalBeanLocator.locate('com.liferay.portal.kernel.velocity.VelocityEngineUtil'))
+	#set ($velocityContext = $veloengine.getWrappedStandardToolsContext())
+	
+	#set ($requestVarsClass = $portal.getClass().forName('com.liferay.portal.theme.RequestVars'))
+	#set ($requestVarsConstructor = $requestVarsClass.constructors)
+	#set ($requestVarsConstructor = $requestVarsConstructor.get(0))
+	#set ($requestVars = $requestVarsConstructor.newInstance($request, $theme_display, $mainLayout.ancestorPlid, $mainLayout.ancestorLayoutId,$velocityContext)) 
+	#set ($navItemClass = $portal.getClass().forName('com.liferay.portal.theme.NavItem'))
+	#set ($newNavItems = $navItemClass.fromLayouts($requestVars, $newMainLayouts))
+	#set ($nav_items = $newNavItems)
+*#
+
+#set ($selected_parent_uuid = "empty")
+
+#macro (isitselected $nav_item_cur)
+	#set ($selected_literal = "selected active")
+	#set ($current_group_id = $themeDisplay.getLayout().getGroup().getGroupId())
+	#set ($current_layout_uuid = $themeDisplay.getLayout().getUuid())
+	#if ($nav_item_cur.getLayout().getTypeSettingsProperties().getProperty("description"))
+		#set ($nav_item_description = $nav_item_cur.getLayout().getTypeSettingsProperties().getProperty("description"))
+	#else
+		#set ($nav_item_description = "empty")
+	#end
+
+	#if ($nav_item_description.contains("site"))
+		#set ($desc_begin_index = $nav_item_description.indexOf("=") + 1)
+		#set ($the_site_name = $nav_item_description.substring($desc_begin_index, $nav_item_description.length()))
+		#set ($the_site_id = $groupService.getGroup($company_id, $the_site_name).getGroupId())		
+		#if ($the_site_id == $current_group_id)
+			#if ($nav_item_cur.getLayout().getParentLayoutId() > 0)
+				#set ($selected_parent_uuid = $layoutService.getLayout($nav_item_cur.getLayout().getGroupId(), false, $nav_item_cur.getLayout().getParentLayoutId()).getUuid())		 
+			#end			
+			$selected_literal			
+		#end
+	#elseif ($nav_item_description.contains("layout"))
+		#set ($desc_begin_index = $nav_item_description.indexOf("=") + 1)
+		#set ($the_layout_id = $nav_item_description.substring($desc_begin_index, $nav_item_description.length()))
+		#if ($the_layout_id == $current_layout_uuid)
+			#if ($nav_item_cur.getLayout().getParentLayoutId() > 0)
+				#set ($selected_parent_uuid = $layoutService.getLayout($nav_item_cur.getLayout().getGroupId(), false, $nav_item_cur.getLayout().getParentLayoutId()).getUuid())		 
+			#end
+			$selected_literal
+		#end
+	#end
+#end
+
+#macro (getnavitemurl $nav_item_cur)	
+	#if ($nav_item_cur.hasChildren() == true)
+		$nav_item_cur.getChildren().get(0).getURL()
+	#else
+		$nav_item_cur.getURL()
+	#end
+#end
+
+#macro (hrpnavigatt2 $items)
+    <ul class="dropdown-menu child-menu">
+        #foreach ($nav_item in $items)
+            <li class="#isitselected($nav_item)" id="$nav_item.getLayout().getUuid()">
+                <a class="aui-menu-label" href="$nav_item.getURL()" $nav_item.getTarget()>
+                    ##<span class="has-menu-$nav_item.hasChildren()">$nav_item.icon() $nav_item.getName()</span>
+                    <span class="has-menu-$nav_item.hasChildren()">$nav_item.getName()</span>
+                </a>
+            </li>
+        #end
+        <script language="javascript">		
+			if(document.getElementById("$selected_parent_uuid"))
+				document.getElementById("$selected_parent_uuid").className += " selected";					
+		</script>           
+    </ul>
+#end
+
+#macro (hrpnavigatt1 $items)
+
+    <ul class="dropdown-menu child-menu">
+        #foreach ($nav_item in $items)
+            <li class="#isitselected($nav_item)" id="$nav_item.getLayout().getUuid()">
+                <a class="aui-menu-label" href="$nav_item.getURL()" $nav_item.getTarget()>
+                    ##<span class="has-menu-$nav_item.hasChildren()">$nav_item.icon() $nav_item.getName()</span>
+                    <span class="has-menu-$nav_item.hasChildren()">$nav_item.getName()</span>
+                </a>
+                #if ($nav_item.hasChildren())
+                    #hrpnavigatt2($nav_item.getChildren())
+                #end
+            </li>
+        #end
+        <script language="javascript">
+        if(document.getElementById("$selected_parent_uuid"))				
+			document.getElementById("$selected_parent_uuid").className += " selected";					
+		</script>
+    </ul>
+
+#end
+<div class="navbar">
+    <nav class="navbar-inner" id="navigation">
+
+        <ul class="nav">
+            #foreach ($nav_item in $nav_items)
+                #set($hasChildrenClass = "")
+                #if ($nav_item.hasChildren())
+                   #set($hasChildrenClass = "has-menu-true")
+                #end
+	            <li class="#isitselected($nav_item) dropdown" id="$nav_item.getLayout().getUuid()">
+	                <a class="$hasChildrenClass" href="#getnavitemurl($nav_item)" $nav_item.getTarget()>
+	                    $nav_item.getName()
+	                </a>
+	                #if ($nav_item.hasChildren())
+	                   #hrpnavigatt1($nav_item.getChildren())
+	                #end
+	            </li>
+            #end
+        </ul>
+        #if (!$is_signed_in)
+            <ul class="nav sign-in">
+                <li>
+                    <a data-redirect="$is_login_redirect_required" href="$sign_in_url" id="sign-in" rel="nofollow">$sign_in_text</a>
+                </li>
+            </ul>
+            
+        #end
+    </nav>
+</div>

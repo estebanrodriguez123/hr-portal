@@ -1,0 +1,57 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+## merge request.parameters with url parameters
+#set ($parameters = $httpUtil.getParameterMap($httpUtil.getQueryString($url)))
+
+#if ($!request.parameters == '')
+	#set ($ignore = $request.put('parameters', {}))
+#end
+
+#foreach ($param in $request.parameters.keySet())
+	#set ($value = $request.parameters.get($param))
+	#set ($ignore = $parameters.put($param, $value))
+#end
+
+#foreach ($param in $parameters.keySet())
+	#set ($value = $parameters.get($param))
+	#set ($valueSize = $getterUtil.getInteger($value.size()))
+
+	#if ($valueSize == 1)
+		#set ($value = $value.get(0))
+	#end
+	
+	#set ($ignore = $parameters.put($param, $value))
+#end
+
+#set ($xmlRequestDoc = $saxReaderUtil.read($xmlRequest))
+#set ($xmlRequestRoot = $xmlRequestDoc.rootElement)
+#set ($xmlRequestParameters = $xmlRequestRoot.element('parameters'))
+
+#macro( addRequestParameter $key $value )
+	## Add the parameter to the request object
+	#set ($ignore = $request.parameters.put($key, $value))
+	## Add the parameter to the parameters object
+	#set ($ignore = $parameters.put($key, $value))
+	## Add the parameter to xmlRequest object
+	#set ($_parameterElement = $xmlRequestParameters.addElement('parameter'))
+	#set ($_paramNameElement = $_parameterElement.addElement('name'))
+	#set ($_paramNameElement.text = $key)
+	#set ($_paramValueElement = $_parameterElement.addElement('value'))
+	#set ($_paramValueElement.text = $value)
+	#set ($xmlRequest = $xmlRequestDoc.asXML())
+#end

@@ -1,0 +1,48 @@
+/* This file allows you to override default styles in one central location for easier upgrade and maintenance. */
+
+/* Addtional css */
+.article-content {
+    position: relative;
+    padding: 0 10px 0 10px;
+}
+
+.article-img {
+    width: 140px;
+    height: 135px;
+    float: left;
+    margin: 5px;
+}
+
+h1.title {
+    text-align: left;
+    text-decoration: underline;
+}
+
+.trim {
+    text-align: left;
+}
+
+a.go-back {
+    color:#fff;
+    float:right;
+    margin-bottom:10px;
+}
+.aui-carousel-item{
+    display:none;
+}
+.aui-carousel-item-active{
+    display:block;
+}
+a.go-back:hover {
+    color:#fff;
+}
+
+a.go-back div {
+    height:33px;
+    width:126px;
+}
+
+a.go-back span {
+    padding:8px 0 0 40px;
+    display:block;
+}

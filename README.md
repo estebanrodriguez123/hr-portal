@@ -1,4 +1,4 @@
-hrportal
+HR Portal
 ========
 
-Human Resources Portal for Liferay
+Fully functional generic HR Portal solution for the Liferay community. 

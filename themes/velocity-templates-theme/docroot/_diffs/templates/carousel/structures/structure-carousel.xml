@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- This is the structure for carousel_parent_slide_template.vm -->
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element dataType="boolean" indexType="" name="flag" readOnly="false" repeatable="false" required="false" showLabel="true" type="checkbox" width="">
+		<meta-data locale="en_US">
+			<entry name="label">
+				<![CDATA[flag]]>
+			</entry>
+			<entry name="predefinedValue">
+				<![CDATA[false]]>
+			</entry>
+			<entry name="tip">
+				<![CDATA[]]>
+			</entry>
+		</meta-data>
+	</dynamic-element>
+</root>

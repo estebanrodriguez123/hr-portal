@@ -1,0 +1,63 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+#set($np = $request.get("portlet-namespace"))
+
+<style>
+	img.${np}pos
+	{
+		position:relative;		
+		width : 325px;
+		float : right;
+	}
+	.${np}data{
+		padding: 0 10px;
+		position: relative;
+		text-align:left;
+	}
+	
+	#news-article-header {
+		border-bottom:1px solid #c8c9ca;
+		color: #555;
+		margin-top: 10px;
+		margin-bottom: 10px;		
+	}
+	
+	#news-article-back-button {
+		font-weight: bold;
+		text-align: right;
+		margin: 5px;
+		font-size: 1.2em;
+		float: right;
+	}
+	
+</style>
+
+#set ($current_portlet_id = $request.get("portlet-namespace"))
+#if (!$current_portlet_id.contains("_101_INSTANCE_"))
+	<div id="news-article-header">
+		<a class="go-back" href="$request.get("render-url-normal")">
+		    <span id="news-article-back-button">&laquo; #language("back")</span>
+		</a>
+		<h1>$reserved-article-title.getData()</h1>	
+	</div>
+#end
+
+<img class="${np}pos" src=$articleImage.getData() alt=""/>
+<div class="${np}data">
+  $articleSummary.getData()
+</div>

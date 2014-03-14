@@ -1,0 +1,138 @@
+#*
+* Copyright (C) 2012-2013 Rivet Logic Corporation.
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GPLv3 General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GPLv3 General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*#
+
+#parse ($init)
+#set ($WebArticleService = $serviceLocator.findService('hrportal-services-portlet', 'com.hrportal.service.WebArticleHelperLocalService'))
+#set ($content_search_portlet_submit_url = $portletURLFactory.create($request, "3", $page.getPlid(), "RENDER_PHASE"))
+$content_search_portlet_submit_url.setWindowState("maximized")
+$content_search_portlet_submit_url.setPortletMode("view")
+$content_search_portlet_submit_url.setParameter("struts_action", "/search/search")
+
+<!DOCTYPE html>
+<html class="$root_css_class #language("lang.dir")" dir="#language("lang.dir")" lang="$w3c_language_id">
+
+<head>
+	<title>$the_title - $company_name</title>
+    
+    <meta content="initial-scale=1.0, width=device-width" name="viewport" />
+    
+	$theme.include($top_head_include)
+</head>
+
+<body class="$css_class">
+	
+	$theme.include($body_top_include)
+	
+	##if($is_signed_in)
+		#dockbar()
+	##end  
+	
+	<div id="wrapper" class="guest-community-$isGuestCommunity">
+	
+		<a href="#main-content" id="skip-to-content">#language("skip-to-content")</a>
+		<div id="hd-container">
+            <div id="header-wrapper">
+    			<header id="banner" role="banner">
+    				<div id="logo">
+    					<h1 class="site-title">
+    						<a class="$logo_css_class" href="$site_default_url" title="#language("go-to") $site_name">
+    							<img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
+    						</a>						
+    					</h1>
+    					<h2 class="community-title">
+    						<a href="$community_default_url" title="#language("go-to") $community_name">
+    							<span>$community_name</span>
+    						</a>
+    					</h2>
+    				</div>
+    				
+    		        #if($is_signed_in)
+    					<div id="search">
+    						<form id="search-form" name="search-form" method="post" action="$content_search_portlet_submit_url">
+    							<fieldset>
+    								<input type="text" name="keywords" id="keywords" class="defaultText search" 
+    									size="15" title="Enter search keywords" />
+    								<div id="search-button"></div>								
+    							</fieldset>
+    						</form>
+    					</div>
+    				#end
+    				#if(!$is_signed_in)
+    				 	## <a id="sign-in" href="$sign_in_url" id="sign-in" rel="nofollow" >$sign_in_text</a>
+                    #end				 
+    			</header>
+    			
+    		</div>
+    		<div id="navigation-wrapper">
+    			#if ($has_navigation)
+    				#parse ("$full_templates_path/navigation.vm")
+    			#end
+            </div>
+        	<div id="breadcrumbs-wrapper">
+    			<nav id="breadcrumbs" class="site-breadcrumbs">
+    				<h1><span>#language("breadcrumbs")</span></h1>
+    				#breadcrumbs()
+    			</nav>
+    		</div>
+        </div>
+		<div id="page" class="container">
+			
+			<div id="content">
+				#if ($selectable)
+					$theme.include($content_include)
+				#else
+					$portletDisplay.recycle()
+		
+					$portletDisplay.setTitle($the_title)
+		
+					$theme.wrapPortlet("portlet.vm", $content_include)
+				#end
+			</div>
+			
+		</div>
+		<footer id="footer-wrapper">
+			<div id="footer-content" class="container">
+				<div class="inner">
+	                <div id="foot-about">
+	                    <h2>About Rivet Logic</h2>
+	                    We are a Liferay Platinum Partner, so please feel free to contact us and let us know how we can help your organization.
+	                </div>
+	                <div id="foot-contact">
+	                    <h2>Contact</h2>
+	                    Phone: +1.703.955.3480 <br/>
+	                    Fax: +1.703.234.7711
+	                    <br/><br>
+	                    E-mail: <a href="mailto:sales@rivetlogic.com">sales@rivetlogic.com</a><br/>
+	                    Careers: <a href="mailto:jobs@rivetlogic.com">jobs@rivetlogic.com</a>
+	                </div>
+	                <div id="foot-social">
+	                	<a href="http://www.youtube.com/rivetlogic"><div id="youtube-icon"></div></a>
+	                	<a href="http://blogs.rivetlogic.com"><div id="blogs-icon"></div></a>
+	                	<a href="http://twitter.com/rivetlogic"><div id="twitter-icon"></div></a>
+	                    <a href="http://www.facebook.com/rivetlogic"><div id="facebook-icon"></div></a>
+	                </div>
+	                <div class="clear-both"></div>
+	            </div>
+	        </div>			
+		</footer>
+        </div>
+
+</body>
+
+$theme.include($bottom_include)
+
+</html>
