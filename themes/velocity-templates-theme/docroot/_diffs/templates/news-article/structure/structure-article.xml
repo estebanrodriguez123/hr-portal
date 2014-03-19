@@ -22,7 +22,7 @@
 				<![CDATA[]]>
 			</entry>
 			<entry name="tip">
-				<![CDATA[This image will be displayed in Carousel.]]>
+				<![CDATA[This image will be displayed in Carousel. Proper image dimensions established are width: 210px, height: 240px ]]>
 			</entry>
 		</meta-data>
 	</dynamic-element>

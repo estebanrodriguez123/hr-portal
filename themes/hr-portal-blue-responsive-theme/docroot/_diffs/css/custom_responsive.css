@@ -285,17 +285,20 @@ custom_responsive.css = Responsive styles
 /* carousel */
 @include respond-to(phone, tablet) {
     .aui div.hrp-carousel-wrapper {
-        .carousel-item .article-img-link, img {
-            width: 100%;
-        }
         .carousel-item {
-            height: 500px;
-            .text-ct {
-                padding: 5%;
+            height: 314px;
+            .article-img-link {
+                padding-left: 10px;
+                float: right;
+                img {
+                    width: 100%;
+                    height: auto;
+                    margin: 0;
+                }
             }
         }
         menu {
-            top: 475px;
+            top: 311px;
         }
     }
 }
