@@ -55,7 +55,7 @@
         }
         
         .carousel-item .article-img-link {
-            width: 40%;
+            max-width: 45%;
             display: block;
         }
         
@@ -74,7 +74,6 @@
         .${np}article-img {
             float: left;
             height: 235px;
-            width: 280px;
         }   
         h1.${np}title {
             text-align: left;
@@ -151,6 +150,8 @@
                 this.initialize(config);
             };
             Carousel.BREAK_WIDTH = 980;
+            Carousel.MOBILE_HEIGHT = 318;
+            Carousel.DESKTOP_HEIGHT = 235;
             Carousel.prototype =
             {
                 initialize: function(config)
@@ -161,11 +162,11 @@
                     if (this.items_trim.size() > 0) {
                         var carousel = this.createCarousel(config).render();
                         A.on('orientationchange', function(e) {
-                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? 480 : 235;
+                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? Carousel.MOBILE_HEIGHT : Carousel.DESKTOP_HEIGHT;
                             carousel.set('height', height);
                         });
                         A.on('resize', function(e) {
-                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? 480 : 235;
+                            var height = (me.viewport().width < Carousel.BREAK_WIDTH) ? Carousel.MOBILE_HEIGHT : Carousel.DESKTOP_HEIGHT;
                             carousel.set('height', height);
                         });
                     }
@@ -183,7 +184,7 @@
                 trimItem: function(node)
                 {
                     var t = node.get('text');
-                    node.set('text', (t.length > 235) ? t.substr(0, 235) + "..." : t);
+                    node.set('text', (t.length > Carousel.DESKTOP_HEIGHT) ? t.substr(0, Carousel.DESKTOP_HEIGHT) + "..." : t);
                 }, 
                 createCarousel :  function(config)
                 {
@@ -193,7 +194,7 @@
             var config = {
                 intervalTime: 5,
                 contentBox: '#${np}slider',
-                height: (A.one('body').get('winWidth') <= Carousel.BREAK_WIDTH) ? 480 : 235,
+                height: (A.one('body').get('winWidth') <= Carousel.BREAK_WIDTH) ? Carousel.MOBILE_HEIGHT : Carousel.DESKTOP_HEIGHT,
                 
             };
             A.one('#${np}slider').removeClass('hidden');
