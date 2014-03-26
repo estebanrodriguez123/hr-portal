@@ -54,9 +54,6 @@ if stringMatches "$lr_version" "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+";then
 
 	ext_plugin=$(firstFile "ext" "^[[:digit:][:alpha:]-]+-ext$")
 	if [[ ! -z $ext_plugin ]];then
-echo "ext_plugin: \"$ext_plugin\""
-ls -lha ext
-rm -rf ext/hr-portal-ext
 		cd ext/$ext_plugin
 		echo "Building EXT"
 		ant clean direct-deploy
