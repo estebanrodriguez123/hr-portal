@@ -52,10 +52,10 @@ if stringMatches "$lr_version" "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+";then
 		cd ../../
 	fi
 
-        echo "Building EXT"
 	ext_plugin=$(firstFile "ext" "^[[:digit:][:alpha:]-]+-ext$")
 	if [[ ! -z $ext_plugin ]];then
 		cd ext/$ext_plugin
+		echo "Building EXT"
 		ant clean direct-deploy
 		antReturnCode=$?
 		if [ $antReturnCode -ne 0 ];then
