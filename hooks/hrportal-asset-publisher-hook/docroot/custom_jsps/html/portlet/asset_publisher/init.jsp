@@ -43,7 +43,7 @@ page import="com.liferay.util.RSSUtil" %>
 /** BEGIN RIVET LOGIT CUSTOMIZATION **/
 PortletPreferences preferences = null;
 if(renderRequest != null){
-	preferences = renderRequest.getPreferences()
+	preferences = renderRequest.getPreferences();
 }
 /** END RIVET LOGIT CUSTOMIZATION **/
 		 
