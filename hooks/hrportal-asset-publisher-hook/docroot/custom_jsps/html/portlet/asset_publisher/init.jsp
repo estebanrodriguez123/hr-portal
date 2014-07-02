@@ -41,7 +41,10 @@ page import="com.liferay.util.RSSUtil" %>
 
 <%
 /** BEGIN RIVET LOGIT CUSTOMIZATION **/
-PortletPreferences preferences = renderRequest.getPreferences();
+PortletPreferences preferences = null;
+if(renderRequest != null){
+	preferences = renderRequest.getPreferences();
+}
 /** END RIVET LOGIT CUSTOMIZATION **/
 		 
 String portletResource = ParamUtil.getString(request, "portletResource");
