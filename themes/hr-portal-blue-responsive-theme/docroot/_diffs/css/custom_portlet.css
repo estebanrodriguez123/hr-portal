@@ -9,28 +9,37 @@ custom_portlet.css = Styles used for  portlet markup
     border : none;
     overflow : hidden;
     background-color : transparent;
-    border-bottom : 1px solid #D0D0D0;
+    border-bottom : 1px solid #ccc;
     margin-bottom:10px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
     .portlet-topper {
         .portlet-title {
-            background: #BABABA;
-            @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
-            @include border-top-radius(10px);
-            border: 1px solid #D0D0D0;
-            color: #5D5D5D;
+            background: #F58220;
+            @include border-top-radius(5px);
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            color: white;
             font-size: 17px;
             font-weight: bold;
-            font-family: 'Rokkitt',serif;
             line-height: 20px;
-            letter-spacing: 0;
             height: auto;
             padding-left: 10px;
             padding-top: 4px;
-            text-shadow: 1px 1px 1px #FFFFFF;
+            padding-bottom: 3px;
             margin: 0;
+            img{
+                position: relative;
+                top: -2px;
+                margin-right: 5px;
+            }
         }
         menu.portlet-topper-toolbar {
-            padding:0;
+            padding-top: 4px;
             .portlet-icon-back {
                 color:inherit;
             }
@@ -39,8 +48,6 @@ custom_portlet.css = Styles used for  portlet markup
     .portlet-content {
         border: 1px solid #D0D0D0;
         padding: 5px 25px 25px 25px;
-        background: #FBFBFB;
-        @include background-image(linear-gradient(rgba(255, 255, 255, 1) 0%, rgba(237, 238, 239, 1) 35%, rgba(225, 227, 228, 1) 58%, rgba(220, 222, 224, 1) 100%));
     }
 }
 .portlet-column-content-only, .ltr .portlet-column-content-first, .rtl .portlet-column-content-last {
