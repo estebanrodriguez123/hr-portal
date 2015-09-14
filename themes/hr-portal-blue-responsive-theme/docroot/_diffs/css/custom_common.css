@@ -325,10 +325,10 @@ custom_common.css = Common component styles
             }
             #foot-contact {
                 float: left;
-                margin-right: 50px;
-                margin-left: 50px;
-                padding-left: 75px;
-                padding-right: 75px;
+                margin-right: 30px;
+                margin-left: 30px;
+                padding-left: 30px;
+                padding-right: 30px;
                 border-right : 1px white solid;
                 border-left : 1px white solid;
             }
