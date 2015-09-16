@@ -253,10 +253,18 @@ custom_common.css = Common component styles
                 background: url(../images/horizontal-menu-submenu-indicator.png) no-repeat 95% 50%;
             }
             .navbar-inner {
-                background: #EAEAEA;
-                @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
+                background: #f58220;
                 border: none;
                 font-size: 15px;
+                ul li a{
+                    color:white;
+                    text-shadow:none;
+                    background-color: inherit;
+                }
+                ul li.active a {
+                    color: white;
+                    text-shadow: 1px 0px #BABABA;
+                }
             }
         }
     }
@@ -276,13 +284,12 @@ custom_common.css = Common component styles
 }
 /* footer */
 #footer-wrapper {
-    background: #06141C;
-    color: #878787;
+    background: black;
+    color: white;
     #footer-content {
         overflow: hidden;
         width: auto;
-        padding: 30px;
-        color: #878787;
+        padding: 15px;
         .inner {
             margin: 0 auto;
             padding: 0 15px;
@@ -308,8 +315,9 @@ custom_common.css = Common component styles
                 height: 32px;
             }
             a {
-                color: #878787
-                    }
+                color: white;
+                text-decoration: underline;
+            }
             #foot-about {
                 float: left;
                 margin : 0;
@@ -317,12 +325,12 @@ custom_common.css = Common component styles
             }
             #foot-contact {
                 float: left;
-                margin-right: 50px;
-                margin-left: 50px;
-                padding-left: 75px;
-                padding-right: 75px;
-                border-right : 1px #5D5D5D solid;
-                border-left : 1px #5D5D5D solid;
+                margin-right: 30px;
+                margin-left: 30px;
+                padding-left: 30px;
+                padding-right: 30px;
+                border-right : 1px white solid;
+                border-left : 1px white solid;
             }
             #foot-social {
                 float: right;
@@ -354,8 +362,6 @@ custom_common.css = Common component styles
                 color: #878787;
             }
             h2 {
-                padding-bottom: 10px;
-                letter-spacing: -1px;
                 font-size: 24px;
                 color: #FFFFFF;
             }

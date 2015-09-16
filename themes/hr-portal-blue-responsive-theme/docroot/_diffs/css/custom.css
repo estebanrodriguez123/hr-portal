@@ -6,10 +6,11 @@
  body {
     margin : 0px;
     padding : 0px;
-    font-family : Georgia, "Times New Roman", Times, serif, Arial !important;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
     font-size : 12px;
-    color : #5D5D5D;
+    color : black;
     width : 100%;
+    letter-spacing: 1px;
 }
 img.alignleft {
     float: left
@@ -24,7 +25,7 @@ hr {
     display: none
 }
 #wrapper {
-    background: #EAEAEA;
+    background: white;
     padding: 0;
 }
 #footRibbon, .dockbar .dockbar-inner-wrapper, .global-nav-boundingbox {
@@ -38,7 +39,7 @@ hr {
 }
 #header-wrapper {
     overflow: hidden;
-    background: url(../images/banner_bg.jpg) #0B161C repeat-x left top;
+    background: white;
 }
 #banner {
     margin-bottom: 0;
@@ -52,8 +53,11 @@ hr {
     padding-top: 20px;
 }
 /* LOGO */
- #logo {
+#logo {
     float: left
+}
+#logo img{
+    max-width: 200px;
 }
 #logo h1, #logo h2 {
     float: left;
@@ -97,16 +101,14 @@ hr {
         padding-bottom: 0px;
         position: relative;
         width: 100%;
-        font-family: Verdana;
         ul {
             @include box-shadow(inset 0 8px 6px -7px #000000);
             border-bottom:1px solid #dddddd;
             background: #BABABA;
             font-size: 12px;
             margin : 0;
-            padding-bottom: 5px;
-            padding-top: 3px;
-            margin-bottom: 5px;
+            padding-top: 2px;
+            margin-bottom: 10px;
             margin-left: 0;
             li {
                 background: none;
@@ -115,8 +117,9 @@ hr {
                 a {
                     color : #FFF;
                     text-decoration : none;
-                    text-shadow: 0 1px 3px #000000;
-                    filter: dropshadow(color=#000000, offx=0, offy=3);
+                    text-shadow: none;
+                    position: relative;
+                    top: 1px;
                 }
             }
             li + li {
@@ -128,7 +131,7 @@ hr {
             background: none;
         }
         .first span, li span {
-            padding: 0 2.4em 2px 0;
+            padding: 0 2.4em 0 0;
             color: transparent;
             background: url("../images/breadcrumb-circle-arrow.png") no-repeat 100% 65% transparent;
             text-decoration: none;
@@ -163,17 +166,17 @@ hr {
 }
 /* carousel */
  div.hrp-carousel-wrapper {
-    border: 1px solid #D0D0D0;
-    background: #FFFFFF;
+    border: 1px solid #BABABA;
     overflow: hidden;
+    @include border-radius(5px);
     menu {
-        @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
         position: relative;
         right: 0;
         top: 230px;
         height: 21px;
         border-radius: 0;
         text-align: center;
+        background-color: #F58220;
         li {
             float: none;
             display: inline-block;
@@ -193,9 +196,6 @@ hr {
     }
     .carousel-item {
         height: 255px;
-        background: #FFFFFF;
-        @include background-image(linear-gradient(rgba(245, 245, 245, 1) 0%, rgba(220, 220, 220, 1) 50%, rgba(220, 220, 220, 1) 51%, rgba(184, 184, 184, 1) 100%));
-        color: #5D5D5D;
         line-height: 17px;
         .text-ct {
             padding: 0 5%;
@@ -221,6 +221,14 @@ hr {
         padding: 0;
         border: none;
         display: inline;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        @include border-radius(5px);
+        background-color: #F58220;
     }
     input.blank {
         color: #7C7768
@@ -231,20 +239,14 @@ hr {
         display: inline;
         height: 30px;
         float: left;
-        background: #14252F;
-        border-color: #1E4155 #1E4155 #1E4155 #1E4155;
-        border-style: solid;
-        border-width: 1px;
         padding: 0px 0px 0px 8px;
-        font-family: Georgia, "Times New Roman", Times, serif;
         font-size: 12px;
         font-weight: normal;
-        color: #A6A7A9;
-        border-right: none;
-        font-style: italic;
+        color: #BABABA;
+        border: none;
+        margin: 0;
         &.focus {
-            color: #A6A7A9;
-            font-style: italic;
+            color: black;
         }
     }
     #keywords:focus {
@@ -256,16 +258,16 @@ hr {
         display: none
     }
     #search-button {
-        background: url("../images/search.png") no-repeat scroll 1px 2px #14252F;
         display: inline;
-        width: 26px;
-        height: 30px;
         float: right;
         cursor: pointer;
-        border-color: #1E4155 #1E4155 #1E4155 #1E4155;
-        border-style: solid;
-        border-width: 1px;
-        border-left: none;
+        .icon-search{
+            width: 15px;
+            display: inline-block;
+            padding-top: 9px;
+            padding-left: 4px;
+            color: white;
+        }
     }
     .defaultTextActive {
         color: #a1a1a1;
@@ -400,3 +402,7 @@ div.portlet-nested-portlets .portlet-asset-publisher .final-separator {
 /* -------------- END: Rivet Logic Twitter Portlet --------------- */
 
 /* --------------------------------------------------------------- */
+
+.aui .dropdown-menu{
+    background-color: #F58220;
+}
