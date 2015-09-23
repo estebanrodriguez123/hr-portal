@@ -53,11 +53,13 @@ $content_search_portlet_submit_url.setParameter("struts_action", "/search/search
     							<img alt="$logo_description" height="$site_logo_height" src="$site_logo" width="$site_logo_width" />
     						</a>						
     					</h1>
+    					#if ($show_site_name)
     					<h2 class="community-title">
     						<a href="$community_default_url" title="#language("go-to") $community_name">
     							<span>$community_name</span>
     						</a>
     					</h2>
+    					#end
     				</div>
     				
     		        #if($is_signed_in)
